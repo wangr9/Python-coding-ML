@@ -35,7 +35,7 @@ def find_similarity(X, Y):
 	numerator = 0.0
 	sum_of_square_of_components_of_X = 0.0
 	sum_of_square_of_components_of_Y = 0.0
-	
+
 	for i in range(len(X)):
 		numerator += X[i] * Y[i]
 		sum_of_square_of_components_of_X += X[i] ** 2
@@ -113,7 +113,7 @@ def collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user, 
 	number_of_predictions = 0
 	sum_of_squared_error = 0.0
 	count = 0
-	
+
 	# Predicting the ratings here
 	for data in to_be_predicted:
 		# data is of the form [movie, user]
@@ -123,7 +123,7 @@ def collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user, 
 			print("50% data predicted!")
 		elif(count == int(0.75 * len(to_be_predicted))):
 			print("75% data predicted!")
-	
+
 		count += 1
 		sim = []
 		for movie in movies_rated_by_user[data[1]]:
@@ -146,16 +146,16 @@ def collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user, 
 			temp[data[1]][data[0]] = rating
 			number_of_predictions += 1
 
-	
+
 	# Root mean square
 	rmse = math.sqrt(sum_of_squared_error) / number_of_predictions
 	n = len(to_be_predicted)
 
 	# Spearman Coorelation
 	spearman_rank_correlation = 1 - ((6 * sum_of_squared_error) / (n * (n*n - 1)))
-	
+
 	count = 0
-	
+
 	top_k_movies_for_temp = get_top_k_movies(temp, k)
 	for movie in top_k_movies_for_B:
 		if(movie in top_k_movies_for_temp):
@@ -173,7 +173,7 @@ def collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user, 
 	else:
 		print("RMSE for Collaborative filtering without baseline approach: " + str(rmse))
 		print("Spearman Rank Correlation for Collaborative filtering without baseline approach: " + str(spearman_rank_correlation))
-		print("Precision on top k for Collaborative filtering without baseline approach: " + str(precision_on_top_k))	
+		print("Precision on top k for Collaborative filtering without baseline approach: " + str(precision_on_top_k))
 
 	print("Exiting collaborative filtering function!")
 	return
@@ -199,7 +199,7 @@ def predict(A, B, VT, user_offset, temp, k, top_k_movies_for_B):
 
 	# Root mean square
 	rmse = float(frobenius_norm / float(number_of_predictions))
-	
+
 	count = 0
 	top_k_movies_for_temp = get_top_k_movies(temp, k)
 	for movie in top_k_movies_for_B:
@@ -222,7 +222,7 @@ def get_new_VT(VT, eigen_values):
 		sum_of_squared_eigenvalues += eigen_values[i] ** 2
 	sorted_eigenvalues = sorted(temp, key = operator.itemgetter(1), reverse = True)
 	allowed_loss_of_energy = 0.1 * sum_of_squared_eigenvalues
-	
+
 	sum = 0
 	for i in range(len(eigen_values)):
 		if(sum + eigen_values[-i-1] ** 2 < allowed_loss_of_energy):
@@ -256,7 +256,7 @@ def svd_func(A, B, user_offset, temp, k, top_k_movies_for_B):
 	temp_time = start_time - time.time()
 	n, precision_on_top_k, squared_error_sum, rmse = predict(A, B, VT, user_offset, temp, k, top_k_movies_for_B)
 	print("Time taken by SVD: " + str(time.time() - start_time))
-	print("RMSE for SVD: " + str(rmse))	
+	print("RMSE for SVD: " + str(rmse))
 
 	# Finding Spearman Rank Correlation for SVD
 	spearman_rank_correlation = 1 - ((6 * squared_error_sum) / (n * (n*n - 1)))
@@ -268,7 +268,7 @@ def svd_func(A, B, user_offset, temp, k, top_k_movies_for_B):
 
 	n, precision_on_top_k, squared_error_sum, rmse = predict(A, B, VT, user_offset, temp, k, top_k_movies_for_B)		# Here VT is the new VT after 90% retained energy
 	print("Time taken by SVD after 90% retained energy: " + str(time.time() - start_time + temp_time))
-	
+
 	print("RMSE for SVD after 90% retained energy: " + str(rmse))
 
 	# Finding Spearman Rank Correlation for SVD after 90% retained energy
@@ -282,7 +282,7 @@ def svd_func(A, B, user_offset, temp, k, top_k_movies_for_B):
 
 # Function to select random rows for CUR
 def select_random_rows(B, r, isRepeatationAllowed):
-	
+
 	indices = [i for i in range(len(B))]
 	square_of_frobenius_norm_of_B = 0
 	for i in range(len(B)):
@@ -308,7 +308,7 @@ def select_random_rows(B, r, isRepeatationAllowed):
 
 
 def find_U_and_rmse(B, r, row_indices, R, column_indices, C, k, top_k_movies_for_B):
-	
+
 	W = np.zeros((r, r))
 	for i, row in zip(range(len(row_indices)), row_indices):
 		for j, column in zip(range(len(column_indices)), column_indices):
@@ -328,7 +328,7 @@ def find_U_and_rmse(B, r, row_indices, R, column_indices, C, k, top_k_movies_for
 
 	# CUR matrix
 	cur_matrix = np.dot(np.dot(C, U), R)
-	
+
 	count = 0
 	top_k_movies_for_cur = get_top_k_movies(cur_matrix, k)
 	for movie in top_k_movies_for_B:
@@ -394,7 +394,7 @@ def cur_func(B, r, k, top_k_movies_for_B):
 
 
 
-
+## main function starts here
 user_ids_index = {}
 movie_ids_index = {}
 user_count = 0

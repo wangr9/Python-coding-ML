@@ -1,0 +1,141 @@
+warning: LF will be replaced by CRLF in recommender.py.
+The file will have its original line endings in your working directory.
+[1mdiff --git a/recommender.py b/recommender.py[m
+[1mindex 8b7d9ac..65cfe49 100644[m
+[1m--- a/recommender.py[m
+[1m+++ b/recommender.py[m
+[36m@@ -35,7 +35,7 @@[m [mdef find_similarity(X, Y):[m
+ 	numerator = 0.0[m
+ 	sum_of_square_of_components_of_X = 0.0[m
+ 	sum_of_square_of_components_of_Y = 0.0[m
+[31m-	[m
+[32m+[m
+ 	for i in range(len(X)):[m
+ 		numerator += X[i] * Y[i][m
+ 		sum_of_square_of_components_of_X += X[i] ** 2[m
+[36m@@ -113,7 +113,7 @@[m [mdef collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user,[m
+ 	number_of_predictions = 0[m
+ 	sum_of_squared_error = 0.0[m
+ 	count = 0[m
+[31m-	[m
+[32m+[m
+ 	# Predicting the ratings here[m
+ 	for data in to_be_predicted:[m
+ 		# data is of the form [movie, user][m
+[36m@@ -123,7 +123,7 @@[m [mdef collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user,[m
+ 			print("50% data predicted!")[m
+ 		elif(count == int(0.75 * len(to_be_predicted))):[m
+ 			print("75% data predicted!")[m
+[31m-	[m
+[32m+[m
+ 		count += 1[m
+ 		sim = [][m
+ 		for movie in movies_rated_by_user[data[1]]:[m
+[36m@@ -146,16 +146,16 @@[m [mdef collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user,[m
+ 			temp[data[1]][data[0]] = rating[m
+ 			number_of_predictions += 1[m
+ [m
+[31m-	[m
+[32m+[m
+ 	# Root mean square[m
+ 	rmse = math.sqrt(sum_of_squared_error) / number_of_predictions[m
+ 	n = len(to_be_predicted)[m
+ [m
+ 	# Spearman Coorelation[m
+ 	spearman_rank_correlation = 1 - ((6 * sum_of_squared_error) / (n * (n*n - 1)))[m
+[31m-	[m
+[32m+[m
+ 	count = 0[m
+[31m-	[m
+[32m+[m
+ 	top_k_movies_for_temp = get_top_k_movies(temp, k)[m
+ 	for movie in top_k_movies_for_B:[m
+ 		if(movie in top_k_movies_for_temp):[m
+[36m@@ -173,7 +173,7 @@[m [mdef collaborative_filtering_func(AT, BT, no_of_neighbors, movies_rated_by_user,[m
+ 	else:[m
+ 		print("RMSE for Collaborative filtering without baseline approach: " + str(rmse))[m
+ 		print("Spearman Rank Correlation for Collaborative filtering without baseline approach: " + str(spearman_rank_correlation))[m
+[31m-		print("Precision on top k for Collaborative filtering without baseline approach: " + str(precision_on_top_k))	[m
+[32m+[m		[32mprint("Precision on top k for Collaborative filtering without baseline approach: " + str(precision_on_top_k))[m
+ [m
+ 	print("Exiting collaborative filtering function!")[m
+ 	return[m
+[36m@@ -199,7 +199,7 @@[m [mdef predict(A, B, VT, user_offset, temp, k, top_k_movies_for_B):[m
+ [m
+ 	# Root mean square[m
+ 	rmse = float(frobenius_norm / float(number_of_predictions))[m
+[31m-	[m
+[32m+[m
+ 	count = 0[m
+ 	top_k_movies_for_temp = get_top_k_movies(temp, k)[m
+ 	for movie in top_k_movies_for_B:[m
+[36m@@ -222,7 +222,7 @@[m [mdef get_new_VT(VT, eigen_values):[m
+ 		sum_of_squared_eigenvalues += eigen_values[i] ** 2[m
+ 	sorted_eigenvalues = sorted(temp, key = operator.itemgetter(1), reverse = True)[m
+ 	allowed_loss_of_energy = 0.1 * sum_of_squared_eigenvalues[m
+[31m-	[m
+[32m+[m
+ 	sum = 0[m
+ 	for i in range(len(eigen_values)):[m
+ 		if(sum + eigen_values[-i-1] ** 2 < allowed_loss_of_energy):[m
+[36m@@ -256,7 +256,7 @@[m [mdef svd_func(A, B, user_offset, temp, k, top_k_movies_for_B):[m
+ 	temp_time = start_time - time.time()[m
+ 	n, precision_on_top_k, squared_error_sum, rmse = predict(A, B, VT, user_offset, temp, k, top_k_movies_for_B)[m
+ 	print("Time taken by SVD: " + str(time.time() - start_time))[m
+[31m-	print("RMSE for SVD: " + str(rmse))	[m
+[32m+[m	[32mprint("RMSE for SVD: " + str(rmse))[m
+ [m
+ 	# Finding Spearman Rank Correlation for SVD[m
+ 	spearman_rank_correlation = 1 - ((6 * squared_error_sum) / (n * (n*n - 1)))[m
+[36m@@ -268,7 +268,7 @@[m [mdef svd_func(A, B, user_offset, temp, k, top_k_movies_for_B):[m
+ [m
+ 	n, precision_on_top_k, squared_error_sum, rmse = predict(A, B, VT, user_offset, temp, k, top_k_movies_for_B)		# Here VT is the new VT after 90% retained energy[m
+ 	print("Time taken by SVD after 90% retained energy: " + str(time.time() - start_time + temp_time))[m
+[31m-	[m
+[32m+[m
+ 	print("RMSE for SVD after 90% retained energy: " + str(rmse))[m
+ [m
+ 	# Finding Spearman Rank Correlation for SVD after 90% retained energy[m
+[36m@@ -282,7 +282,7 @@[m [mdef svd_func(A, B, user_offset, temp, k, top_k_movies_for_B):[m
+ [m
+ # Function to select random rows for CUR[m
+ def select_random_rows(B, r, isRepeatationAllowed):[m
+[31m-	[m
+[32m+[m
+ 	indices = [i for i in range(len(B))][m
+ 	square_of_frobenius_norm_of_B = 0[m
+ 	for i in range(len(B)):[m
+[36m@@ -308,7 +308,7 @@[m [mdef select_random_rows(B, r, isRepeatationAllowed):[m
+ [m
+ [m
+ def find_U_and_rmse(B, r, row_indices, R, column_indices, C, k, top_k_movies_for_B):[m
+[31m-	[m
+[32m+[m
+ 	W = np.zeros((r, r))[m
+ 	for i, row in zip(range(len(row_indices)), row_indices):[m
+ 		for j, column in zip(range(len(column_indices)), column_indices):[m
+[36m@@ -328,7 +328,7 @@[m [mdef find_U_and_rmse(B, r, row_indices, R, column_indices, C, k, top_k_movies_for[m
+ [m
+ 	# CUR matrix[m
+ 	cur_matrix = np.dot(np.dot(C, U), R)[m
+[31m-	[m
+[32m+[m
+ 	count = 0[m
+ 	top_k_movies_for_cur = get_top_k_movies(cur_matrix, k)[m
+ 	for movie in top_k_movies_for_B:[m
+[36m@@ -394,7 +394,7 @@[m [mdef cur_func(B, r, k, top_k_movies_for_B):[m
+ [m
+ [m
+ [m
+[31m-[m
+[32m+[m[32m## main function starts here[m
+ user_ids_index = {}[m
+ movie_ids_index = {}[m
+ user_count = 0[m
+[36m@@ -492,4 +492,4 @@[m [mprint("")[m
+ # Calling CUR function[m
+ cur_func(B, r, k, top_k_movies_for_B)[m
+ [m
+[31m-# Program ends[m
+\ No newline at end of file[m
+[32m+[m[32m# Program ends[m
